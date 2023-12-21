@@ -46,7 +46,7 @@ const registerUser = expressAsyncHandler(async (req,res)=>{
 
 // login a new user
 // router /api/users/login
-// access public
+
 const loginUser = expressAsyncHandler(async (req,res)=>{
   res.send('login Route')
 })
