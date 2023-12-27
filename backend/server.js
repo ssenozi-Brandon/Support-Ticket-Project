@@ -1,3 +1,4 @@
+const path = require('path')
 const express = require('express')
 const colors = require('colors')
 const dotenv = require('dotenv').config()
@@ -14,6 +15,19 @@ app.use(express.json())
 app.use(errorHandler)
 app.use('/api/users', require('./routes/UserRoutes'))
 app.use('/api/tickets', require('./routes/ticketRoutes'))
+
+// serve front end
+if(process.env.NODE_ENV === 'production'){
+  // set build folder as static
+  app.use(express.static(path.join(__dirname, '../frontend/build')))
+
+  app.get('*',(res,req)=> res.sendFile(__dirname,'../','frontend','build','index.html'))
+}else{
+  app.get('/',(res,req)=> {
+    res.status(200).json({message: 'Welcome to Support Desk API'})
+  })
+}
+
 app.use(express.urlencoded({extended: false}))
 
 app.listen(PORT,()=>console.log(`server started on port ${PORT}`))
