@@ -15,9 +15,6 @@ app.use(express.json())
 app.use(errorHandler)
 app.use('/api/users', require('./routes/UserRoutes'))
 app.use('/api/tickets', require('./routes/ticketRoutes'))
-
-
-
 app.use(express.urlencoded({extended: false}))
 
 app.listen(PORT,()=>console.log(`server started on port ${PORT}`))
