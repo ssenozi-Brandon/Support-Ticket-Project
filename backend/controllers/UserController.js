@@ -64,7 +64,28 @@ const loginUser = expressAsyncHandler(async (req,res)=>{
   }
 })
 
+// get current user
+// route /api/user/me
+// access Private
+const getMe = expressAsyncHandler(async (req,res)=>{
+  const user = {
+    id: req.user._id,
+    email: req.user.email,
+    name: req.user.name
+  }
+  res.status(200).json(user)
+})
+
+// Generating token
+const generateToken = (id)=>{
+    return jwt.sign({ id }, process.env.JWT_SECRET,{
+      expiresIn: '30d'
+    })
+}
+
 module.exports = {
   registerUser,
-  loginUser
+  loginUser,
+  getMe
+
 }
